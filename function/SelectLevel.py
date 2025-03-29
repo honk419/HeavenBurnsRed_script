@@ -1,6 +1,8 @@
 import pandas as pd
 import EnterLevel
+import FinishLevel
 import pygetwindow as gw
+import time
 
 # 读取Excel文件
 file_path = "../proprieties/script_controller.xlsx"
@@ -28,7 +30,11 @@ for index, sheet_name in enumerate(sheet_names, 1):
         print(f"您选择的 sheet 是: {selected_sheet}")
         print("该 sheet 的内容如下：")
         print(df)
-        enterLevel = EnterLevel
-        enterLevel.start(df)
+        # 暂时写死循环数
+        for _ in range(15):
+            enterLevel = EnterLevel
+            enterLevel.start(df)
+            finishLevel = FinishLevel
+            finishLevel.start()
     else:
         print("输入的序号无效，请输入一个有效的序号。")

@@ -33,7 +33,7 @@ def start(df):
     execute_round_process = ExecuteRoundProcess
     for game_round in game_rounds:
         # 分步执行脚本命令
-        execute_round_process.execute_round_process(game_round)
+        execute_round_process.start(game_round)
 
 class EnterLevel:
     pass

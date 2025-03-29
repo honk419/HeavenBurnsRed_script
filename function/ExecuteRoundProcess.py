@@ -16,7 +16,7 @@ def tap_key_with_delay(tap_key):
     time.sleep(0.5)
 
 
-def execute_round_process(game_round_entity):
+def start(game_round_entity):
     # # 获取窗口
     # game_window = gw.getWindowsWithTitle('HeavenBurnsRed')[0]
     #
@@ -39,6 +39,8 @@ def execute_round_process(game_round_entity):
     if game_round_entity.position == 0:
         # 操作-结束本回合
         tap_key_with_delay(Key.enter)
+        # 等待结束时间
+        time.sleep(game_round_entity.wait_time_seconds)
         return
 
     # 操作-选中该角色
@@ -53,7 +55,9 @@ def execute_round_process(game_round_entity):
     else:
         # 循环 game_round_entity.skill_swap_sequence 次
         print(f"skill_swap_sequence:{game_round_entity.skill_swap_sequence}")
-        for _ in range(int(game_round_entity.skill_swap_sequence)):  # 执行 skill_swap_sequence 次循环
+        for _ in range(int(game_round_entity.skill_swap_sequence)):  # 执行 sk
+
+            # ill_swap_sequence 次循环
             # 操作-选中技能
             tap_key_with_delay(Key.down)
 
