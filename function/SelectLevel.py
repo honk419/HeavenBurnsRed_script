@@ -31,12 +31,14 @@ def start():
             print(f"您选择的 sheet 是: {selected_sheet}")
             print("该 sheet 的内容如下：")
             print(df)
-            # 暂时写死循环数
+            # 暂时写死循环数 todo:优化选择方式 低
             for _ in range(15):
-                enterLevel = EnterLevel
-                enterLevel.start(df)
-                finishLevel = FinishLevel
-                finishLevel.start()
+                # 进入当前关卡
+                EnterLevel.start(df)
+                # 等待关卡结束
+                ComparePicUtil.wait_for_level_finish()
+                # 关卡重复战斗
+                FinishLevel.start()
         else:
             print("输入的序号无效，请输入一个有效的序号。")
 

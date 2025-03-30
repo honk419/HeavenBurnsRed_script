@@ -9,24 +9,22 @@ import time
 mouse_controller = mouse.Controller()
 keyboard_controller = keyboard.Controller()
 
-
 def tap_key_with_delay(tap_key):
     keyboard_controller.tap(tap_key)
     # 等待 0.5 秒
     time.sleep(0.5)
 
-
 def start(game_round_entity):
-    time.sleep(1)
     print(f"Executing {game_round_entity} immediately!")
+
+    # 等待结束时间
+    ComparePicUtil.wait_for_friend_round()
 
     # position = 0 什么也不做，直接结束本回合
     if game_round_entity.position == 0:
         # 操作-结束本回合
+        print(f"position = 0 结束本回合")
         tap_key_with_delay(Key.enter)
-
-        # 等待结束时间
-        ComparePicUtil.wait_for_friend_round()
         return
 
     # 操作-选中该角色
@@ -55,13 +53,13 @@ def start(game_round_entity):
             # 操作-指定角色
             tap_key_with_delay(str(int(game_round_entity.skill_target_position)))
 
-    # 等待结束时间
-    ComparePicUtil.wait_for_friend_round()
-
     # 判断是否结束本回合
     if game_round_entity.execute:
         # 操作-结束本回合
+        print(f"结束本回合")
         tap_key_with_delay(Key.enter)
+    else:
+        print(f"不结束本回合!")
 
 
 class ExecuteRoundProcess:

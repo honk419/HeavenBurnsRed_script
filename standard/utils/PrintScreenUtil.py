@@ -22,16 +22,19 @@ def get_game_screenshot(dx,dy,dHidth,dHeight):
     screenshot = np.array(screenshot)  # 转换为 OpenCV 格式
     screenshot = cv2.cvtColor(screenshot, cv2.COLOR_RGB2BGR)  # 转换为 BGR 格式
 
+    # 保存截图
+    # cv2.imwrite("pic.png", screenshot)
+
     return screenshot
 
-def find_target_on_screen( dx, dy, d_width, d_height):
+def find_target_on_screen(target_url, dx, dy, d_width, d_height):
     """ 在游戏窗口截图中查找目标图片 """
     screenshot = get_game_screenshot(dx, dy, d_width, d_height)
     if screenshot is None:
         return False
 
     # 读取目标图片
-    target = cv2.imread("statics/matchPics/startActionButton.png", cv2.IMREAD_COLOR)
+    target = cv2.imread(target_url, cv2.IMREAD_COLOR)
 
     if target is None:
         print("❌ 无法加载目标图片")
