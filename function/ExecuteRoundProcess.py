@@ -2,7 +2,7 @@ import pygetwindow as gw
 import pynput.mouse as mouse
 import pynput.keyboard as keyboard
 from pynput.keyboard import Key
-from standard.entity import GameRoundEntity
+from standard.utils import ComparePicUtil
 import time
 
 # 模拟输入
@@ -17,30 +17,16 @@ def tap_key_with_delay(tap_key):
 
 
 def start(game_round_entity):
-    # # 获取窗口
-    # game_window = gw.getWindowsWithTitle('HeavenBurnsRed')[0]
-    #
-    # # 激活并将窗口切换到前台
-    # game_window.activate()
-
     time.sleep(1)
-
-    # 模拟点击
-    # mouse_controller.click(100, 100)
-
-    # 模拟按键
-    # keyboard_controller.press('w')
-    # keyboard_controller.release('w')
-    # keyboard_controller.tap('w')
-
     print(f"Executing {game_round_entity} immediately!")
 
     # position = 0 什么也不做，直接结束本回合
     if game_round_entity.position == 0:
         # 操作-结束本回合
         tap_key_with_delay(Key.enter)
+
         # 等待结束时间
-        time.sleep(game_round_entity.wait_time_seconds)
+        ComparePicUtil.wait_for_friend_round()
         return
 
     # 操作-选中该角色
@@ -51,13 +37,13 @@ def start(game_round_entity):
     if game_round_entity.swap_flag:
         # 操作-交换位置
         tap_key_with_delay(str(int(game_round_entity.skill_swap_sequence)))
+
     # swap_flag = False 释放技能
     else:
         # 循环 game_round_entity.skill_swap_sequence 次
         print(f"skill_swap_sequence:{game_round_entity.skill_swap_sequence}")
-        for _ in range(int(game_round_entity.skill_swap_sequence)):  # 执行 sk
-
-            # ill_swap_sequence 次循环
+        for _ in range(int(game_round_entity.skill_swap_sequence)):
+            # 执行 skill_swap_sequence 次循环
             # 操作-选中技能
             tap_key_with_delay(Key.down)
 
@@ -69,12 +55,13 @@ def start(game_round_entity):
             # 操作-指定角色
             tap_key_with_delay(str(int(game_round_entity.skill_target_position)))
 
+    # 等待结束时间
+    ComparePicUtil.wait_for_friend_round()
+
     # 判断是否结束本回合
     if game_round_entity.execute:
         # 操作-结束本回合
         tap_key_with_delay(Key.enter)
-    # 等待时间
-    time.sleep(game_round_entity.wait_time_seconds)
 
 
 class ExecuteRoundProcess:

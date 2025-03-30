@@ -1,5 +1,5 @@
 from standard.entity import GameRoundEntity
-import ExecuteFinishProcess
+from function import ExecuteFinishProcess
 import pygetwindow as gw
 import time
 
